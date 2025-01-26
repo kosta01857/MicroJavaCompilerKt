@@ -1,0 +1,252 @@
+package com.kosta.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import com.kosta.pp1.ast.*;
+
+parser code {:
+
+    Logger log = Logger.getLogger(getClass());
+
+    // Error reporting methods
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+        done_parsing();
+        report_error(message, info);
+    }
+
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+        StringBuilder msg = new StringBuilder(message); 
+        if (info instanceof Symbol)
+            msg.append(" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+
+:}
+
+scan with {:
+    Symbol s = this.getScanner().next_token();
+    if (s != null && s.value != null) 
+        log.info(s.toString() + " " + s.value.toString());
+    return s;
+:}
+
+
+
+terminal PROG, RETURN, CONST, CLASS, INTERFACE, EXTENDS, MAP, DO, WHILE, IF, ELSE, CONTINUE, BREAK, PRINT;
+terminal READ,VOID, PLUS, POSTINC, MINUS, POSTDEC, MUL, DIV, MOD, NEW, UNION;
+terminal EQUAL, DOT, COMMA, SEMI, LPAREN, RPAREN, LBRACE, RBRACE, LSQBRACE, RSQBRACE, GT, LT, EQ, NEQ, GTE, LTE,AND, OR;
+terminal Integer NUMBER;
+terminal Character CHAR_CONST;
+terminal Boolean BOOL_CONST;
+terminal String IDENT;
+
+nonterminal Declarations, MethodDeclarations;
+nonterminal ConstDeclarations, LocalVarDeclarationLists, ClassDeclaration, InterfaceDeclaration;
+nonterminal MethodDeclaration;
+nonterminal ClassBody, Literal, IdDefinition, ArrayDeclaration;
+nonterminal Statements, Statement, MethodSignature, FunctionParameters;
+nonterminal Mulop, Addop, Relop;
+nonterminal IfStatement, DoWhile, Designator, DesignatorStatement, PrintStatement, ReturnStatement;
+nonterminal Matched, Unmatched;
+nonterminal Expression, Expressions, ActPars;
+nonterminal MethodChain, ArrayChain, Condition, ConditionTerm, ConditionFact;
+nonterminal AddTerm, Term, Factor, NewType, FunctionArgumentList, ConstDeclaration;
+nonterminal VarDeclarationList, MethodSignatures, InterfaceBody, MethodList;
+nonterminal InterfaceElements, InterfaceElement, DesignatorTail, VarDeclarationListGlobal;
+nonterminal ProgName, Program, ClassMethodDeclarations;
+nonterminal Type, VarDeclaration, IdDefinitionList, ConstDeclarationList, IdentDecl;
+nonterminal IdDeclaration, Declaration, ClassLocalVarDeclarationLists;
+
+precedence left ELSE;
+
+/* Grammar rules start here */
+start with Program;
+/* Helper rules */
+Literal       ::=(CHAR) CHAR_CONST:val | (BOOL) BOOL_CONST:val | (NUMBER) NUMBER:val;
+IdDeclaration ::= (IdDecl) IdentDecl | (ArrayDecl)ArrayDeclaration;
+IdentDecl ::= (IdentDecl)IDENT:name;
+ArrayDeclaration ::= (ArrayDeclaration)IDENT:name LSQBRACE RSQBRACE;
+IdDefinition  ::=(IdDefinition) IDENT:name EQUAL Literal:val;
+ClassLocalVarDeclarationLists ::= /* nothing */
+							 | (ClassLocalVarDeclarationListsConcrete) LocalVarDeclarationLists:LocalVarDeclarations
+							 ;
+ClassBody ::= (ClassBody)LBRACE ClassLocalVarDeclarationLists:ClassLocalVarDeclarationLists ClassMethodDeclarations:ClassMethodDeclarations  RBRACE;
+ClassMethodDeclarations ::= /* nothing */
+							| (ClassMethodDecls)LBRACE MethodDeclarations:MethodDeclarations RBRACE
+							;
+Type ::= (Type) IDENT:typeName;
+Mulop ::= (Mul)MUL | (Div)DIV | (Mod)MOD;
+Addop ::= (Plus)PLUS | (Minus)MINUS;
+Relop ::= GT | LT | (Equal)EQ | (NotEqual)NEQ | GTE | LTE;
+
+/* Main rules */
+Program ::= (Program) PROG ProgName:p Declarations LBRACE MethodDeclarations RBRACE;
+
+ProgName ::= (ProgName) IDENT:name;
+
+Declarations ::= (NoDeclarations)/* nothing */
+               | (DeclarationsRecursive)Declarations Declaration
+               ;
+Declaration ::= (DeclarationConst)ConstDeclarationList
+				|(DeclarationVar)VarDeclarationListGlobal
+				|(DeclarationClass)ClassDeclaration
+				|(DeclarationInterface)InterfaceDeclaration
+				;
+               
+VarDeclarationListGlobal ::= (GlobalVarDeclarationList) VarDeclarationList:DeclarationList
+            | error SEMI:l 
+                {: parser.report_error("Oporavak od greske pri dodeli vrednosti na liniji " + lleft , null); :}
+            | error COMMA:l                                                                   
+                {: parser.report_error("Oporavak od greske pri dodeli vrednosti na liniji "+ lleft , null); :}
+            ;
+
+FunctionParameters ::= (FunctionParameterDeclConcrete) Type IdDeclaration
+					|  (FunctionParameterDeclRecursive) FunctionParameters COMMA Type IdDeclaration
+					;
+FunctionArgumentList ::= /* nothing */ 
+                      | (FuncPars)FunctionParameters:FunctionParameters
+                      ;
+
+MethodSignature ::=  (MethodSignatureTyped) Type:Type IDENT:MethodName LPAREN FunctionArgumentList:FunctionArgumentList RPAREN
+                  |  (MethodSignatureVoid)VOID IDENT:MethodName LPAREN FunctionArgumentList:FunctionArgumentList RPAREN;
+
+MethodDeclaration ::= (MethodDefinition)MethodSignature:MethodSignature LocalVarDeclarationLists:VarDecls LBRACE Statements RBRACE
+					| (MethodDefinitionNoLocals)MethodSignature:MethodSignature LBRACE Statements RBRACE
+                    ;
+
+MethodDeclarations ::= /* nothing */
+                     | (MethodDeclarationsRecursive)MethodDeclarations MethodDeclaration
+                     ;
+
+
+                     
+ConstDeclarationList ::= (ConstDeclarationList) CONST Type:type IdDefinitionList:defList SEMI;
+
+IdDefinitionList ::= (IdDefinitionListConcrete)  IdDefinition:IdDefinition
+                   | (IdDefinitionListRecursive) IdDefinitionList COMMA IdDefinition:IdDefinition;
+
+
+LocalVarDeclarationLists ::=   (LocalVarDeclarationListsRecursive) LocalVarDeclarationLists:LocalVarDeclarationLists VarDeclarationList:declList
+					 	 | (LocalVarDeclarationListsConcrete)VarDeclarationList:declList
+					     ;
+
+VarDeclarationList ::= (VarDeclarationList) Type:type VarDeclaration:VarDeclaration SEMI;
+
+VarDeclaration ::=   (VarDecl)  IdDeclaration:IdDeclaration
+                   | (VarDeclRecursive)VarDeclaration:VarDeclaration COMMA IdDeclaration:IdDeclaration
+                   ;
+
+ClassDeclaration ::=  (ClassDeclarationNoExtend)CLASS IDENT:Name ClassBody
+                    | (ClassDeclarationExtend)CLASS IDENT:Name EXTENDS Type:ExtendType ClassBody
+                    ;
+
+InterfaceDeclaration ::= (InterfaceDeclaration)INTERFACE IDENT:name LBRACE InterfaceBody RBRACE;
+
+
+InterfaceBody ::= (InterfaceBody)InterfaceElements;
+
+InterfaceElements ::= /* nothing */
+                   | (InterfaceElementsRecursive) InterfaceElements InterfaceElement;
+
+InterfaceElement ::= (AbstractMethodDecl)MethodSignature SEMI
+                   | (InterfaceMethodDecl)MethodDeclaration;
+
+Statements ::= /* nothing */
+			  | (StatementsRecursive)Statements:Statements Statement:Statement
+			  ;
+ 
+Statement ::=(DesignatorStmt)DesignatorStatement SEMI
+           | (IfStmt)IfStatement 
+           | (Break)BREAK SEMI
+           | (Continue)CONTINUE SEMI
+           | (ReturnStmt)ReturnStatement
+           | (ReadStatement)READ LPAREN Designator RPAREN SEMI
+           | (PrintStmt)PrintStatement
+           | (WhileStmt)DoWhile
+           | (StatementBlock) LBRACE Statements RBRACE
+		   | error SEMI:l {: parser.report_error("Oporavak od greske pri dodeli vrednostina liniji " +lleft,null); :}
+           ;
+
+ReturnStatement ::= (ReturnVoid)RETURN SEMI
+				  | (ReturnTyped)RETURN Expression SEMI
+				  ;           
+PrintStatement ::= (PrintOne) PRINT LPAREN Expression RPAREN SEMI
+				|  (PrintTwo) PRINT LPAREN Expression COMMA NUMBER RPAREN SEMI
+				;
+				
+DoWhile ::=  (WhileCond) DO Statements WHILE LPAREN Condition RPAREN SEMI
+		   | (WhileDesignator) DO Statements WHILE LPAREN Condition COMMA DesignatorStatement RPAREN SEMI
+		   | (WhileSimple) DO Statements WHILE LPAREN RPAREN SEMI
+		   ;
+
+Condition ::= (ConditionConcrete)  ConditionTerm
+			| (ConditionRecursive) Condition OR ConditionTerm
+			;
+			
+ConditionTerm ::= (ConditionTermConcrete)  ConditionFact
+				| (ConditionTermRecursive) ConditionTerm AND ConditionFact
+
+				;
+
+ConditionFact ::= (ConditionFactExpression) Expression:exp
+				| (ConditionFactExpressions) Expression:exp1 Relop Expression:exp2
+				;
+ 
+DesignatorStatement ::= (VarDesignation) Designator:Designator EQUAL Expression:Expr
+					  | (FunctionCall)Designator LPAREN ActPars RPAREN
+					  | (PostInc)Designator:Designator POSTINC
+					  | (PostDec)Designator:Designator POSTDEC
+					  | (SetDesignation)Designator:DesignatorLeft EQUAL Designator:Operand1 UNION Designator:Operand2
+					  ;
+
+Designator ::=(Designator) IDENT:name DesignatorTail:tail;
+
+DesignatorTail ::= (NoTail)/* nothing */
+                 | (MemberAccess) DesignatorTail:Tail DOT IDENT:ident
+                 | (ArrayAccess) DesignatorTail:Tail LSQBRACE Expression:expr RSQBRACE
+				 ;
+
+					  
+ActPars ::= /* nothing */
+		 | (ActParsConcrete)Expressions
+		 ;
+
+Expressions ::= (ExpressionsConcrete)Expression
+			 |  (ExpressionsRecursive)Expressions COMMA Expression
+			 ;
+
+Expression ::= (MapExpr)Designator MAP Designator
+			|  (ExprMinusAddTerm) MINUS AddTerm 
+			|  (ExprAddTerm)AddTerm
+			;
+
+AddTerm ::= (AddTermConcrete) Term:Term
+		|   (AddTermRecursive) AddTerm:AddTerm Addop Term:Term	
+		;
+		
+Term ::= (TermConcrete) Factor:Factor
+	 |   (TermRecursive) Term:Term Mulop Factor:Factor
+	 ;		
+
+Factor ::= (FactorLiteral) Literal:Literal
+		|  (NestedExpression)LPAREN Expression RPAREN
+		|  (FactorNewType) NewType
+		|  (FactorFunctionCall)Designator LPAREN ActPars RPAREN
+		|  (FactorIdent) Designator
+		;
+		
+NewType ::= (NewArray)NEW Type LSQBRACE Expression RSQBRACE
+		|   (NewClass)NEW Type LPAREN RPAREN
+		;
+
+IfStatement ::= (IfOnly) IF LPAREN Condition RPAREN Statement
+              | (IfElse) IF LPAREN Condition RPAREN Statement ELSE Statement
+              ;

@@ -1,0 +1,133 @@
+INFO  20:23:42,894 - Compiling source file: /Users/kosta01856/files/Programiranje/project/MJCompiler/src/test/resources/temp.mj
+INFO  20:23:42,915 - #2 program
+INFO  20:23:42,915 - #48 mj
+INFO  20:23:42,915 - #48 int
+INFO  20:23:42,917 - #48 a
+INFO  20:23:42,918 - #30 ;
+INFO  20:23:42,918 - #33 {
+INFO  20:23:42,919 - #17 void
+INFO  20:23:42,919 - #48 main
+INFO  20:23:42,919 - #31 (
+INFO  20:23:42,919 - #32 )
+INFO  20:23:42,919 - #48 int
+INFO  20:23:42,919 - #48 a
+INFO  20:23:42,919 - #35 [
+INFO  20:23:42,919 - #36 ]
+INFO  20:23:42,919 - #30 ;
+INFO  20:23:42,919 - #48 int
+INFO  20:23:42,919 - #48 b
+INFO  20:23:42,919 - #30 ;
+INFO  20:23:42,920 - #33 {
+INFO  20:23:42,920 - #48 a
+INFO  20:23:42,920 - #35 [
+INFO  20:23:42,920 - #47 true
+INFO  20:23:42,920 - #36 ]
+INFO  20:23:42,920 - #27 =
+INFO  20:23:42,921 - #45 3
+INFO  20:23:42,921 - #30 ;
+INFO  20:23:42,921 - #34 }
+INFO  20:23:42,921 - #34 }
+INFO  20:23:42,923 - Program(
+  ProgName(
+   mj
+  ) [ProgName]
+  DeclarationsRecursive(
+    NoDeclarations(
+    ) [NoDeclarations]
+    DeclarationVar(
+      GlobalVarDeclarationList(
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               a
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [GlobalVarDeclarationList]
+    ) [DeclarationVar]
+  ) [DeclarationsRecursive]
+  MethodDeclarationsRecursive(
+    MethodDeclarationsDerived1(
+    ) [MethodDeclarationsDerived1]
+    MethodDefinition(
+      MethodSignatureVoid(
+       main
+        FunctionArgumentListDerived1(
+        ) [FunctionArgumentListDerived1]
+      ) [MethodSignatureVoid]
+      LocalVarDeclarationListsRecursive(
+        LocalVarDeclarationListsConcrete(
+          VarDeclarationList(
+            Type(
+             int
+            ) [Type]
+            VarDecl(
+              ArrayDecl(
+                ArrayDeclaration(
+                 a
+                ) [ArrayDeclaration]
+              ) [ArrayDecl]
+            ) [VarDecl]
+          ) [VarDeclarationList]
+        ) [LocalVarDeclarationListsConcrete]
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               b
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [LocalVarDeclarationListsRecursive]
+      StatementsRecursive(
+        StatementsDerived1(
+        ) [StatementsDerived1]
+        DesignatorStmt(
+          VarDesignation(
+            Designator(
+             a
+              ArrayAccess(
+                NoTail(
+                ) [NoTail]
+                ExprAddTerm(
+                  AddTermConcrete(
+                    TermConcrete(
+                      FactorLiteral(
+                        BOOL(
+                         true
+                        ) [BOOL]
+                      ) [FactorLiteral]
+                    ) [TermConcrete]
+                  ) [AddTermConcrete]
+                ) [ExprAddTerm]
+              ) [ArrayAccess]
+            ) [Designator]
+            ExprAddTerm(
+              AddTermConcrete(
+                TermConcrete(
+                  FactorLiteral(
+                    NUMBER(
+                     3
+                    ) [NUMBER]
+                  ) [FactorLiteral]
+                ) [TermConcrete]
+              ) [AddTermConcrete]
+            ) [ExprAddTerm]
+          ) [VarDesignation]
+        ) [DesignatorStmt]
+      ) [StatementsRecursive]
+    ) [MethodDefinition]
+  ) [MethodDeclarationsRecursive]
+) [Program]
+INFO  20:23:42,924 - ===================================
+ERROR 20:23:42,930 - expression inside [] must be of type intat line5
+INFO  20:23:42,930 - semantic analysis failed!

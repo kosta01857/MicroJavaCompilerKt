@@ -1,0 +1,136 @@
+INFO  05:35:04,746 - Compiling source file: /Users/kosta01856/files/Programiranje/project/MJCompiler/src/test/resources/temp.mj
+INFO  05:35:04,767 - #2 program
+INFO  05:35:04,767 - #48 mj
+INFO  05:35:04,767 - #48 int
+INFO  05:35:04,768 - #48 a
+INFO  05:35:04,768 - #30 ;
+INFO  05:35:04,768 - #33 {
+INFO  05:35:04,769 - #17 void
+INFO  05:35:04,769 - #48 main
+INFO  05:35:04,769 - #31 (
+INFO  05:35:04,769 - #32 )
+INFO  05:35:04,769 - #48 int
+INFO  05:35:04,769 - #48 a
+INFO  05:35:04,769 - #35 [
+INFO  05:35:04,769 - #36 ]
+INFO  05:35:04,769 - #30 ;
+INFO  05:35:04,769 - #48 int
+INFO  05:35:04,769 - #48 b
+INFO  05:35:04,769 - #30 ;
+INFO  05:35:04,769 - #33 {
+INFO  05:35:04,770 - #48 a
+INFO  05:35:04,770 - #35 [
+INFO  05:35:04,770 - #45 3
+INFO  05:35:04,770 - #36 ]
+INFO  05:35:04,770 - #27 =
+INFO  05:35:04,770 - #45 3
+INFO  05:35:04,771 - #30 ;
+INFO  05:35:04,771 - #34 }
+INFO  05:35:04,771 - #34 }
+INFO  05:35:04,773 - Program(
+  ProgName(
+   mj
+  ) [ProgName]
+  DeclarationsRecursive(
+    NoDeclarations(
+    ) [NoDeclarations]
+    DeclarationVar(
+      GlobalVarDeclarationList(
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               a
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [GlobalVarDeclarationList]
+    ) [DeclarationVar]
+  ) [DeclarationsRecursive]
+  MethodDeclarationsRecursive(
+    MethodDeclarationsDerived1(
+    ) [MethodDeclarationsDerived1]
+    MethodDefinition(
+      MethodSignatureVoid(
+       main
+        FunctionArgumentListDerived1(
+        ) [FunctionArgumentListDerived1]
+      ) [MethodSignatureVoid]
+      LocalVarDeclarationListsRecursive(
+        LocalVarDeclarationListsConcrete(
+          VarDeclarationList(
+            Type(
+             int
+            ) [Type]
+            VarDecl(
+              ArrayDecl(
+                ArrayDeclaration(
+                 a
+                ) [ArrayDeclaration]
+              ) [ArrayDecl]
+            ) [VarDecl]
+          ) [VarDeclarationList]
+        ) [LocalVarDeclarationListsConcrete]
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               b
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [LocalVarDeclarationListsRecursive]
+      StatementsRecursive(
+        StatementsDerived1(
+        ) [StatementsDerived1]
+        DesignatorStmt(
+          VarDesignation(
+            Designator(
+             a
+              ArrayAccess(
+                NoTail(
+                ) [NoTail]
+                ExprAddTerm(
+                  AddTermConcrete(
+                    TermConcrete(
+                      FactorLiteral(
+                        NUMBER(
+                         3
+                        ) [NUMBER]
+                      ) [FactorLiteral]
+                    ) [TermConcrete]
+                  ) [AddTermConcrete]
+                ) [ExprAddTerm]
+              ) [ArrayAccess]
+            ) [Designator]
+            ExprAddTerm(
+              AddTermConcrete(
+                TermConcrete(
+                  FactorLiteral(
+                    NUMBER(
+                     3
+                    ) [NUMBER]
+                  ) [FactorLiteral]
+                ) [TermConcrete]
+              ) [AddTermConcrete]
+            ) [ExprAddTerm]
+          ) [VarDesignation]
+        ) [DesignatorStmt]
+      ) [StatementsRecursive]
+    ) [MethodDefinition]
+  ) [MethodDeclarationsRecursive]
+) [Program]
+INFO  05:35:04,773 - ===================================
+INFO  05:35:04,779 - Declaration of variable a of type Integer level: 0at line2
+INFO  05:35:04,780 - Declaration of method main of return type None number of args: 0at line4
+INFO  05:35:04,780 - Declaration of variable a of type Array of rs.etf.pp1.symboltable.concepts.Struct@4590c9c3s level: 1at line4
+INFO  05:35:04,780 - Declaration of variable b of type Integer level: 1at line4
+INFO  05:35:04,787 - semantic analysis passed!

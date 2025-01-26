@@ -1,0 +1,131 @@
+INFO  20:22:17,659 - Compiling source file: /Users/kosta01856/files/Programiranje/project/MJCompiler/src/test/resources/temp.mj
+INFO  20:22:17,681 - #2 program
+INFO  20:22:17,681 - #48 mj
+INFO  20:22:17,681 - #48 int
+INFO  20:22:17,682 - #48 a
+INFO  20:22:17,682 - #30 ;
+INFO  20:22:17,682 - #33 {
+INFO  20:22:17,683 - #17 void
+INFO  20:22:17,683 - #48 main
+INFO  20:22:17,683 - #31 (
+INFO  20:22:17,683 - #32 )
+INFO  20:22:17,683 - #48 int
+INFO  20:22:17,683 - #48 a
+INFO  20:22:17,683 - #35 [
+INFO  20:22:17,683 - #36 ]
+INFO  20:22:17,683 - #30 ;
+INFO  20:22:17,683 - #48 int
+INFO  20:22:17,684 - #48 b
+INFO  20:22:17,684 - #30 ;
+INFO  20:22:17,684 - #33 {
+INFO  20:22:17,684 - #48 a
+INFO  20:22:17,684 - #35 [
+INFO  20:22:17,684 - #47 true
+INFO  20:22:17,684 - #36 ]
+INFO  20:22:17,684 - #27 =
+INFO  20:22:17,685 - #45 3
+INFO  20:22:17,685 - #30 ;
+INFO  20:22:17,685 - #34 }
+INFO  20:22:17,685 - #34 }
+INFO  20:22:17,687 - Program(
+  ProgName(
+   mj
+  ) [ProgName]
+  DeclarationsRecursive(
+    NoDeclarations(
+    ) [NoDeclarations]
+    DeclarationVar(
+      GlobalVarDeclarationList(
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               a
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [GlobalVarDeclarationList]
+    ) [DeclarationVar]
+  ) [DeclarationsRecursive]
+  MethodDeclarationsRecursive(
+    MethodDeclarationsDerived1(
+    ) [MethodDeclarationsDerived1]
+    MethodDefinition(
+      MethodSignatureVoid(
+       main
+        FunctionArgumentListDerived1(
+        ) [FunctionArgumentListDerived1]
+      ) [MethodSignatureVoid]
+      LocalVarDeclarationListsRecursive(
+        LocalVarDeclarationListsConcrete(
+          VarDeclarationList(
+            Type(
+             int
+            ) [Type]
+            VarDecl(
+              ArrayDecl(
+                ArrayDeclaration(
+                 a
+                ) [ArrayDeclaration]
+              ) [ArrayDecl]
+            ) [VarDecl]
+          ) [VarDeclarationList]
+        ) [LocalVarDeclarationListsConcrete]
+        VarDeclarationList(
+          Type(
+           int
+          ) [Type]
+          VarDecl(
+            IdDecl(
+              IdentDecl(
+               b
+              ) [IdentDecl]
+            ) [IdDecl]
+          ) [VarDecl]
+        ) [VarDeclarationList]
+      ) [LocalVarDeclarationListsRecursive]
+      StatementsRecursive(
+        StatementsDerived1(
+        ) [StatementsDerived1]
+        DesignatorStmt(
+          VarDesignation(
+            Designator(
+             a
+              ArrayAccess(
+                NoTail(
+                ) [NoTail]
+                ExprAddTerm(
+                  AddTermConcrete(
+                    TermConcrete(
+                      FactorLiteral(
+                        BOOL(
+                         true
+                        ) [BOOL]
+                      ) [FactorLiteral]
+                    ) [TermConcrete]
+                  ) [AddTermConcrete]
+                ) [ExprAddTerm]
+              ) [ArrayAccess]
+            ) [Designator]
+            ExprAddTerm(
+              AddTermConcrete(
+                TermConcrete(
+                  FactorLiteral(
+                    NUMBER(
+                     3
+                    ) [NUMBER]
+                  ) [FactorLiteral]
+                ) [TermConcrete]
+              ) [AddTermConcrete]
+            ) [ExprAddTerm]
+          ) [VarDesignation]
+        ) [DesignatorStmt]
+      ) [StatementsRecursive]
+    ) [MethodDefinition]
+  ) [MethodDeclarationsRecursive]
+) [Program]
+INFO  20:22:17,688 - ===================================
