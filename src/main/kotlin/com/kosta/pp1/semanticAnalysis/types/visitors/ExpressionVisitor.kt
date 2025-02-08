@@ -1,10 +1,10 @@
 package com.kosta.pp1.semanticAnalysis.types.visitors
 
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.utils.extensions.getObj
-import com.kosta.pp1.utils.extensions.isOfKind
-import com.kosta.pp1.utils.extensions.isOfKinds
-import com.kosta.pp1.utils.extensions.kindEquals
+import com.kosta.pp1.core.utils.extensions.getObj
+import com.kosta.pp1.core.utils.extensions.isOfKind
+import com.kosta.pp1.core.utils.extensions.isOfKinds
+import com.kosta.pp1.core.utils.extensions.kindEquals
 import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj

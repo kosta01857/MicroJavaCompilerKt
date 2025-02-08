@@ -1,8 +1,11 @@
 package com.kosta.pp1.semanticAnalysis.register
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.findFunctionParameters
+import com.kosta.pp1.core.findFunctionParameters
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
+import com.kosta.pp1.core.utils.Log4JUtils
+import com.kosta.pp1.core.utils.objExistsInScope
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
@@ -33,6 +36,33 @@ class RegisterStateDefault : RegisterState {
             }
         }
         funcObj.level = structList.size
+    }
+
+    override fun insertMethod(signature: MethodSignature): Obj?{
+        val returnStruct: Struct
+        val name: String
+        when (signature) {
+            is MethodSignatureTyped -> {
+                name = signature.methodName
+                returnStruct = TypeInferenceEngine.inferType(signature.type)
+            }
+
+            is MethodSignatureVoid -> {
+                name = signature.methodName
+                returnStruct = Tab.noType
+            }
+
+            else -> {
+                name = ""
+                returnStruct = Tab.noType
+            }
+        }
+        if(objExistsInScope(name)){
+            Log4JUtils.reportError("method of name $name is already defined in this scope",signature)
+            return null
+        }
+        val funcObj = Tab.insert(Obj.Meth, name, returnStruct)
+        return funcObj
     }
 
 }

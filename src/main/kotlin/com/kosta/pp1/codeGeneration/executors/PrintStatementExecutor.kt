@@ -1,6 +1,6 @@
 package com.kosta.pp1.codeGeneration.executors
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.PrintOne
 import com.kosta.pp1.ast.PrintStmt
 import com.kosta.pp1.ast.SyntaxNode

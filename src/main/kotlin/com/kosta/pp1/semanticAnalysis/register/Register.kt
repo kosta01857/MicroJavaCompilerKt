@@ -1,14 +1,12 @@
 package com.kosta.pp1.semanticAnalysis.register
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.utils.extensions.addMembers
-import com.kosta.pp1.utils.extensions.getValue
-import com.kosta.pp1.semanticAnalysis.SemanticAnalyzer
+import com.kosta.pp1.core.utils.extensions.getValue
 import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
-import com.kosta.pp1.utils.Log4JUtils
-import com.kosta.pp1.utils.objExists
-import com.kosta.pp1.utils.objExistsInScope
+import com.kosta.pp1.core.utils.Log4JUtils
+import com.kosta.pp1.core.utils.objExists
+import com.kosta.pp1.core.utils.objExistsInScope
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct

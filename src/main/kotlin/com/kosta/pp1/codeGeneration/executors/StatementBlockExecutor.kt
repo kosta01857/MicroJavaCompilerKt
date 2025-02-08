@@ -2,7 +2,7 @@ package com.kosta.pp1.codeGeneration.executors
 
 import com.kosta.pp1.ast.StatementBlock
 import com.kosta.pp1.ast.SyntaxNode
-import com.kosta.pp1.findStatements
+import com.kosta.pp1.core.findStatements
 
 class StatementBlockExecutor : StatementExecutor {
     override fun executeStatement(node: SyntaxNode?) {

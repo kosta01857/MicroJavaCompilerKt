@@ -1,6 +1,6 @@
 package com.kosta.pp1.codeGeneration
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.MethodDefinition
 import com.kosta.pp1.ast.MethodDefinitionNoLocals
 import com.kosta.pp1.ast.SyntaxNode

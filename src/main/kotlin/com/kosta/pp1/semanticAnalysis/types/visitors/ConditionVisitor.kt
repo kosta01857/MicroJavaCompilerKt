@@ -1,13 +1,13 @@
 package com.kosta.pp1.semanticAnalysis.types.visitors
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.ConditionFactExpression
 import com.kosta.pp1.ast.ConditionFactExpressions
 import com.kosta.pp1.ast.Equal
 import com.kosta.pp1.ast.NotEqual
 import com.kosta.pp1.ast.VisitorAdaptor
-import com.kosta.pp1.utils.extensions.isValid
-import com.kosta.pp1.utils.Log4JUtils
+import com.kosta.pp1.core.utils.extensions.isValid
+import com.kosta.pp1.core.utils.Log4JUtils
 
 class ConditionVisitor : VisitorAdaptor() {
     var isValid = true

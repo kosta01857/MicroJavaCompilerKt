@@ -1,6 +1,6 @@
 package com.kosta.pp1.semanticAnalysis.types.visitors
 
-import com.kosta.pp1.SET_TYPE_ID
+import com.kosta.pp1.core.SET_TYPE_ID
 import com.kosta.pp1.ast.FactorFunctionCall
 import com.kosta.pp1.ast.FactorIdent
 import com.kosta.pp1.ast.FactorLiteral
@@ -9,7 +9,7 @@ import com.kosta.pp1.ast.NestedExpression
 import com.kosta.pp1.ast.NewArray
 import com.kosta.pp1.ast.NewClass
 import com.kosta.pp1.ast.VisitorAdaptor
-import com.kosta.pp1.extensions.*
+import com.kosta.pp1.core.utils.extensions.*
 import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import com.kosta.pp1.utils.extensions.*
 import rs.etf.pp1.symboltable.Tab

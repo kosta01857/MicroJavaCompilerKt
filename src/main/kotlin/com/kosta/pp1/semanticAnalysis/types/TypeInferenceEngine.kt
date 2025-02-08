@@ -1,13 +1,13 @@
 package com.kosta.pp1.semanticAnalysis.types
 
-import com.kosta.pp1.Cache
-import com.kosta.pp1.SET_TYPE_ID
+import com.kosta.pp1.core.Cache
+import com.kosta.pp1.core.SET_TYPE_ID
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.utils.extensions.getObj
+import com.kosta.pp1.core.utils.extensions.getObj
 import com.kosta.pp1.semanticAnalysis.types.visitors.ConditionVisitor
 import com.kosta.pp1.semanticAnalysis.types.visitors.ExpressionVisitor
 import com.kosta.pp1.semanticAnalysis.types.visitors.FactorVisitor
-import com.kosta.pp1.utils.Log4JUtils
+import com.kosta.pp1.core.utils.Log4JUtils
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Struct
 

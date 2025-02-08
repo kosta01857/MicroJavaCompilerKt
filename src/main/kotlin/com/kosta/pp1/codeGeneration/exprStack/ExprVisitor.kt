@@ -1,11 +1,10 @@
 package com.kosta.pp1.codeGeneration.exprStack
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.*
 import com.kosta.pp1.codeGeneration.Generator
-import com.kosta.pp1.utils.Log4JUtils
-import com.kosta.pp1.utils.extensions.getValue
+import com.kosta.pp1.core.utils.Log4JUtils
+import com.kosta.pp1.core.utils.extensions.getValue
 import rs.etf.pp1.mj.runtime.Code
-import rs.etf.pp1.symboltable.concepts.Obj
 
 class ExprVisitor: VisitorAdaptor() {
     override fun visit(addTermRecursive: AddTermRecursive) {

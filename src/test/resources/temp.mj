@@ -1,6 +1,0 @@
-program mj
-{
-	void main() {
-	    print(3);
-	}
-}

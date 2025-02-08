@@ -1,14 +1,14 @@
 package com.kosta.pp1.codeGeneration
 
-import com.kosta.pp1.Cache
+import com.kosta.pp1.core.Cache
 import com.kosta.pp1.ast.Expression
 import com.kosta.pp1.ast.NewArray
 import com.kosta.pp1.ast.Statements
 import com.kosta.pp1.codeGeneration.executors.StatementExecutor
 import com.kosta.pp1.codeGeneration.exprStack.ExprStack
-import com.kosta.pp1.findStatements
-import com.kosta.pp1.utils.extensions.kindEquals
-import com.kosta.pp1.utils.extensions.size
+import com.kosta.pp1.core.findStatements
+import com.kosta.pp1.core.utils.extensions.kindEquals
+import com.kosta.pp1.core.utils.extensions.size
 import rs.etf.pp1.mj.runtime.Code
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct

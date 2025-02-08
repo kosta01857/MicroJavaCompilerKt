@@ -89,8 +89,6 @@ tasks.register<JavaExec>("generateLexer") {
     // Set the JAR file as the classpath
     classpath = files("lib/JFlex.jar")
 
-    // JFlex’s main class (standard entry point for JFlex)
-    mainClass.set("jflex.Main")
 
     // Arguments for JFlex
     args(
@@ -126,5 +124,5 @@ tasks.register<JavaExec>("debugProgram"){
 }
 
 application {
-    mainClass.set("com.kosta.pp1.CompilerKt")
+    mainClass.set("com.kosta.pp1.core.CompilerKt")
 }

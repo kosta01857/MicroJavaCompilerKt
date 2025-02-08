@@ -1,6 +1,5 @@
 package com.kosta.pp1.semanticAnalysis
 
-import com.kosta.pp1.*
 import com.kosta.pp1.ast.*
 import com.kosta.pp1.semanticAnalysis.register.Register
 import com.kosta.pp1.semanticAnalysis.register.RegisterStateClass
@@ -11,6 +10,12 @@ import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
 import com.kosta.pp1.ast.Designator
 import com.kosta.pp1.ast.SetDesignation
+import com.kosta.pp1.core.*
+import com.kosta.pp1.core.utils.Log4JUtils
+import com.kosta.pp1.core.utils.extensions.*
+import com.kosta.pp1.core.utils.inScopeOf
+import com.kosta.pp1.core.utils.objExists
+import com.kosta.pp1.core.utils.setType
 import com.kosta.pp1.utils.*
 import com.kosta.pp1.utils.extensions.*
 
@@ -97,7 +102,6 @@ object SemanticAnalyzer {
     }
 
 
-
     fun classDeclarationPass(classDeclaration: ClassDeclaration) {
         val classObj: Obj = Register.registerClass(classDeclaration) ?: return
         Log4JUtils.reportInfo("Class declaration of name ${classObj.name}.", null)
@@ -107,6 +111,7 @@ object SemanticAnalyzer {
             val body = classDeclaration.findClassBody()
             classObj.type.inheritFromParent(extendStruct)
             this.classBodyPass(body)
+            classObj.insertAllMembers()
         }
         Register.setState(RegisterStateDefault())
 
@@ -119,6 +124,7 @@ object SemanticAnalyzer {
         inScopeOf(interfaceObj) {
             val body: InterfaceBody = interfaceDeclaration.interfaceBody
             this.interfaceBodyPass(body)
+            interfaceObj.insertAllMembers()
         }
         Register.setState(RegisterStateDefault())
     }

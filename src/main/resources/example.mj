@@ -1,0 +1,18 @@
+program mj
+{
+    class Abs{
+        int a;
+        {
+            void methAbs(){}
+        }
+    }
+    class Con extends Abs{
+        int b;
+        {
+            void methCon(){}
+        }
+    }
+	void main() {
+	    print(3);
+	}
+}
