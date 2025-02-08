@@ -1,13 +1,15 @@
 package com.kosta.pp1.utils
 
+import com.kosta.pp1.Cache
 import com.kosta.pp1.SET_TYPE_ID
 import com.kosta.pp1.ast.ArrayAccess
+import com.kosta.pp1.ast.Designator
 import com.kosta.pp1.ast.MemberAccess
-import com.kosta.pp1.extensions.addMembers
-import com.kosta.pp1.extensions.isClassOrInterface
-import com.kosta.pp1.extensions.isArray
-import com.kosta.pp1.extensions.isOfType
-import com.kosta.pp1.register.Register
+import com.kosta.pp1.utils.extensions.addMembers
+import com.kosta.pp1.utils.extensions.isClassOrInterface
+import com.kosta.pp1.utils.extensions.isArray
+import com.kosta.pp1.utils.extensions.isOfType
+import com.kosta.pp1.semanticAnalysis.register.Register
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
@@ -32,12 +34,15 @@ fun isRefType(struct: Struct) = true.takeIf { struct.isArray() || struct.isClass
 
 fun setType() = Struct(SET_TYPE_ID)
 
-inline fun  withScope(block: () -> Obj) {
+inline fun  inScopeOf(scopeOwner:Obj, block: () -> Unit) {
     Tab.openScope()
     try{
-        val obj = block()
-        obj.addMembers(Tab.currentScope.locals.symbols())
-        Tab.chainLocalSymbols(obj)
+        block()
+        val locals = Tab.currentScope.locals
+        locals?.let {
+            scopeOwner.addMembers(Tab.currentScope.locals.symbols())
+        }
+        Tab.chainLocalSymbols(scopeOwner)
     }
     finally {
         Tab.closeScope()
@@ -64,6 +69,15 @@ fun handleMemberAccess(targetStruct: Struct, accessor: MemberAccess): Pair<Obj,S
     return Pair(currentObj,currentType)
 }
 
+fun handleArrayElemet(currentObj: Obj,currentType: Struct,lastAccessor: ArrayAccess, designator: Designator): Obj{
+    if (!currentType.isArray() && currentObj.type.isArray()) {
+        val elemObj = Obj(Obj.Elem, currentObj.name, currentType)
+        Cache.elemToArrMap[elemObj] = currentObj
+        Cache.designatorToExprMap[designator] = lastAccessor.expression
+        return elemObj
+    }
+    return currentObj
+}
 fun handleArrayAccess(arrayStruct: Struct, accessor: ArrayAccess): Struct?{
     var currentType = arrayStruct
     if (!currentType.isArray()) {
@@ -78,3 +92,4 @@ fun handleArrayAccess(arrayStruct: Struct, accessor: ArrayAccess): Struct?{
     currentType = currentType.elemType
     return currentType
 }
+

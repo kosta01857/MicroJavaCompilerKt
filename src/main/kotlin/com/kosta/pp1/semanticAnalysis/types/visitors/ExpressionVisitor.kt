@@ -1,10 +1,11 @@
-package com.kosta.pp1.semanticAnalysis.visitors
+package com.kosta.pp1.semanticAnalysis.types.visitors
 
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.extensions.getObj
-import com.kosta.pp1.extensions.isOfKinds
-import com.kosta.pp1.extensions.kindEquals
-import com.kosta.pp1.types.TypeInferenceEngine
+import com.kosta.pp1.utils.extensions.getObj
+import com.kosta.pp1.utils.extensions.isOfKind
+import com.kosta.pp1.utils.extensions.isOfKinds
+import com.kosta.pp1.utils.extensions.kindEquals
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
@@ -25,9 +26,9 @@ class ExpressionVisitor: VisitorAdaptor() {
         val rightDesignator = mapExpr.designator1
         val leftDesignator = mapExpr.designator
         val rightDesignatorType = TypeInferenceEngine.inferType(rightDesignator)
-        type = rightDesignatorType.takeIf {
+        type = Tab.intType.takeIf {
             val funcObj = leftDesignator.getObj() ?: return
-            funcObj.isOfKinds(setOf(Obj.Meth)) &&
+            funcObj.isOfKind(Obj.Meth) &&
                     funcObj.level == 1 &&
                     funcObj.type.kindEquals(Tab.intType) &&
                     rightDesignatorType.kindEquals(Struct(Struct.Array,Tab.intType))

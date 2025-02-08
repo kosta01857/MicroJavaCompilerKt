@@ -181,9 +181,11 @@ int tezinaK, tezinaS;
 		d1 = new Dot();
 		d2 = new Dash();
 		
-		print(d1.height()); print(eol);
+		print(d1.height());
+	    print(eol);
 		d1.display();
-		print(d2.height()); print(eol);
+		print(d2.height());
+		print(eol);
 		d2.display();
 
 	}

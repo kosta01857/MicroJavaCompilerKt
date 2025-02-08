@@ -1,9 +1,11 @@
-package com.kosta.pp1.extensions
+package com.kosta.pp1.utils.extensions
 
 import com.kosta.pp1.Cache
-import com.kosta.pp1.Finder
+import com.kosta.pp1.SET_TYPE_ID
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.types.TypeInferenceEngine
+import com.kosta.pp1.findAccessors
+import com.kosta.pp1.findExpressions
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import com.kosta.pp1.utils.*
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
@@ -19,6 +21,10 @@ fun Struct.isClassOrInterface(): Boolean =
     true.takeIf { kindEquals(Struct.Class) || kindEquals(Struct.Interface) } ?: false
 
 fun Struct.isArray() = true.takeIf { kind == Struct.Array } ?: false
+
+fun Struct.size() = this.numberOfFields.takeIf { it > 0 } ?: 1
+fun Struct.isSet() = true.takeIf { kind == SET_TYPE_ID } ?: false
+fun Struct.isBool() = true.takeIf { this.kindEquals(Struct.Bool) } ?: false
 
 /**
  * Converts Type to String
@@ -37,6 +43,16 @@ fun Struct.typeName(): String =
         else -> "None"
     }
 
+
+fun Struct.inheritFromParent(parentStruct: Struct?){
+    if (parentStruct == null) return
+    val bothAreClasses = this.isClassOrInterface() && parentStruct.isClassOrInterface()
+    if (!bothAreClasses) throw RuntimeException("both structs need to be classes/interfaces")
+    val membersToAdd = parentStruct.members.filter { it.isOfKinds(setOf(Obj.Fld,Obj.Meth)) }
+    membersToAdd.forEach {
+        Tab.currentScope.addToLocals(it)
+    }
+}
 
 /**
  * Returns int value of Literal. For bool -> 1 for true, 0 for false. For char,
@@ -76,7 +92,12 @@ fun Expression.isOfType(targetStructKind: Int): Boolean {
     return expressionType.kindEquals(targetStructKind)
 }
 
-fun Expression.isValid(): Boolean = !this.isOfType(Tab.noType)
+fun Expression.isValid(): Boolean {
+    val exprType = Cache.typeMap[this]
+    return exprType?.let {
+        exprType != Tab.noType
+    } ?: !this.isOfType(Tab.noType)
+}
 
 
 fun Condition.isValid(): Boolean {
@@ -90,7 +111,7 @@ fun Condition.isValid(): Boolean {
  */
 fun Designator.getObj(): Obj? {
     Cache.objMap[this]?.let { return it }
-    val accessors = Finder.findAccessors(this.designatorTail)
+    val accessors = this.designatorTail.findAccessors()
     var currentObj = Tab.find(this.name)
     if (currentObj == Tab.noObj) {
         Log4JUtils.reportError("use of undeclared identifier ${this.name}", this)
@@ -112,15 +133,12 @@ fun Designator.getObj(): Obj? {
                 currentObj = obj
                 currentType = struct
             }
-
             is ArrayAccess -> currentType = handleArrayAccess(currentType, it) ?: return null
         }
     }
-    if (!currentType.isArray() && currentObj.type.isArray()) {
-        val elemObj = Obj(Obj.Elem, currentObj.name, currentType)
-        Cache.elemToArrMap[elemObj] = currentObj
-        Cache.designatorToExprMap[this] = (accessors.last() as ArrayAccess).expression
-        currentObj = elemObj
+    val lastAccessor = accessors.last() as? ArrayAccess
+    lastAccessor?.let {
+        currentObj = handleArrayElemet(currentObj,currentType,lastAccessor,this)
     }
     Cache.objMap[this] = currentObj
     return currentObj
@@ -128,6 +146,10 @@ fun Designator.getObj(): Obj? {
 
 fun Obj.isOfKinds(kinds: Set<Int>): Boolean {
     return kinds.any { this.kind == it }
+}
+
+fun Obj.isOfKind(kind: Int): Boolean {
+    return this.kind == kind
 }
 
 /**
@@ -150,16 +172,17 @@ fun Struct.isCompatibleWithClass(rightSide: Struct): Boolean {
 fun Struct.isAssignableTo(leftSideStruct: Struct): Boolean {
     val rightSideStruct = this
     return when {
-        leftSideStruct.isClassOrInterface() && this.isClassOrInterface() -> leftSideStruct.isCompatibleWithClass(
+        leftSideStruct.isSet() && rightSideStruct.isSet() -> true
+        leftSideStruct.isClassOrInterface() && rightSideStruct.isClassOrInterface() -> leftSideStruct.isCompatibleWithClass(
             rightSideStruct
         )
-
+        leftSideStruct.isBool() && rightSideStruct.isBool() -> true
         else -> leftSideStruct.compatibleWith(rightSideStruct)
     }
 }
 
 fun Obj.isFunctionCallValid(parameters: ActPars): Boolean {
-    require(this.isOfKinds(setOf(Obj.Meth))) {
+    require(this.isOfKind(Obj.Meth)) {
         "object must represent a function"
     }
 
@@ -170,7 +193,7 @@ fun Obj.isFunctionCallValid(parameters: ActPars): Boolean {
         return parameterTypeList.isEmpty()
     }
 
-    val expressions = Finder.findExpressions(parameters.expressions)
+    val expressions = parameters.expressions.findExpressions()
 
     val isValid = expressions.zip(parameterTypeList).all { (expression, struct) ->
         expression.isOfType(struct)

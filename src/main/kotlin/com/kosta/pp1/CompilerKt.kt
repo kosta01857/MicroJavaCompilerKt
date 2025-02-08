@@ -1,11 +1,15 @@
 package com.kosta.pp1
 
 import com.kosta.pp1.ast.*
+import com.kosta.pp1.codeGeneration.CodeGenVisitor
+import com.kosta.pp1.codeGeneration.Generator
 import com.kosta.pp1.semanticAnalysis.SemanticAnalyzer
 import com.kosta.pp1.utils.Log4JUtils
-import com.kosta.pp1.utils.withScope
+import com.kosta.pp1.utils.myDumpSymbolTableVisitor
+import com.kosta.pp1.utils.inScopeOf
 import org.apache.log4j.Logger
 import org.apache.log4j.xml.DOMConfigurator
+import rs.etf.pp1.mj.runtime.Code
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
@@ -29,10 +33,11 @@ const val SET_TYPE_ID = 10
 class CompilerKt {
     companion object {
         @JvmStatic
-        fun main(args: Array<String>){
+        fun main(args: Array<String>) {
             val compiler = CompilerKt()
             compiler.compile()
         }
+
         init {
             Tab.init()
             DOMConfigurator.configure(Log4JUtils.findLoggerConfigFile())
@@ -48,19 +53,17 @@ class CompilerKt {
             Tab.currentScope().addToLocals(Obj(Obj.Meth, "add", Tab.noType, 0, 2).also {
                 addObj = it
             })
-            withScope {
+            inScopeOf(addObj) {
                 Tab.currentScope().addToLocals(Obj(Obj.Var, "a", Tab.find("set").type))
                 Tab.currentScope().addToLocals(Obj(Obj.Var, "b", Tab.intType))
-                addObj
             }
 
             Tab.currentScope().addToLocals(Obj(Obj.Meth, "addAll", Tab.noType, 0, 2).also {
                 addAllObj = it
             })
-            withScope {
+            inScopeOf(addAllObj) {
                 Tab.currentScope().addToLocals(Obj(Obj.Var, "a", Tab.find("set").type))
                 Tab.currentScope().addToLocals(Obj(Obj.Var, "b", Struct(Struct.Array, Tab.intType)))
-                addAllObj
             }
             Cache.init()
         }
@@ -88,7 +91,7 @@ class CompilerKt {
             // ispis prepoznatih programskih konstrukcija
             SemanticAnalyzer.programPass(prog)
 
-            //Tab.dump(new myDumpSymbolTableVisitor())
+             Tab.dump(myDumpSymbolTableVisitor())
 
             // log.info(" Print count calls = " + v.printCallCount)
 
@@ -97,15 +100,15 @@ class CompilerKt {
                 log.info("semantic analysis failed!")
             } else {
                 log.info("semantic analysis passed!")
-                val objFile = File("test/program.obj")
+                val objFile = File("build/generated/program.obj")
                 if (objFile.exists()) {
                     objFile.delete()
                 }
-                //codeGenerator = CodeGenerator(Generator.getInstance())
-                //prog.traverseBottomUp(codeGenerator)
-                //Code.dataSize = v.getGlobalVars()
-                //Code.mainPc = codeGenerator.getMainPc()
-                //Code.write(new FileOutputStream (objFile))
+                val codeGenerator = CodeGenVisitor(Generator)
+                prog.traverseBottomUp(codeGenerator)
+                Code.dataSize = SemanticAnalyzer.globalVars
+                Code.mainPc = codeGenerator.mainPc
+                Code.write(FileOutputStream (objFile))
             }
         }
     }

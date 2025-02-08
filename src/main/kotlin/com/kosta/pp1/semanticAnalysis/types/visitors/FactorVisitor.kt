@@ -1,5 +1,6 @@
-package com.kosta.pp1.types.visitors
+package com.kosta.pp1.semanticAnalysis.types.visitors
 
+import com.kosta.pp1.SET_TYPE_ID
 import com.kosta.pp1.ast.FactorFunctionCall
 import com.kosta.pp1.ast.FactorIdent
 import com.kosta.pp1.ast.FactorLiteral
@@ -8,11 +9,9 @@ import com.kosta.pp1.ast.NestedExpression
 import com.kosta.pp1.ast.NewArray
 import com.kosta.pp1.ast.NewClass
 import com.kosta.pp1.ast.VisitorAdaptor
-import com.kosta.pp1.extensions.getObj
-import com.kosta.pp1.extensions.isFunctionCallValid
-import com.kosta.pp1.extensions.isOfKinds
-import com.kosta.pp1.extensions.isOfType
-import com.kosta.pp1.types.TypeInferenceEngine
+import com.kosta.pp1.extensions.*
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
+import com.kosta.pp1.utils.extensions.*
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
@@ -39,6 +38,10 @@ class FactorVisitor: VisitorAdaptor() {
             is NewArray -> {
                 val expression = newType.expression
                 val elemType = TypeInferenceEngine.inferType(newType.type)
+                if (elemType.kindEquals(SET_TYPE_ID)) {
+                    type = elemType
+                    return
+                }
                 type = Struct(Struct.Array,elemType).takeIf {
                     expression.isOfType(Tab.intType)
                 } ?: return
@@ -50,7 +53,7 @@ class FactorVisitor: VisitorAdaptor() {
         val designator = functionCall.designator
         val functionObj = designator.getObj() ?: return
 
-        if (!functionObj.isOfKinds(setOf(Obj.Meth))){
+        if (!functionObj.isOfKind(Obj.Meth)){
             return
         }
         if(functionObj.isFunctionCallValid(functionCall.actPars)){

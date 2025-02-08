@@ -1,7 +1,6 @@
 program mj
-	int a;
 {
-	void main() int a[];int b; {
-		a[3] = 3;
+	void main() {
+	    print(3);
 	}
 }

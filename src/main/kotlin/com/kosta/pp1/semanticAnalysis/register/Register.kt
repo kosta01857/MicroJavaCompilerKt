@@ -1,10 +1,11 @@
-package com.kosta.pp1.register
+package com.kosta.pp1.semanticAnalysis.register
 
+import com.kosta.pp1.Cache
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.extensions.addMembers
-import com.kosta.pp1.extensions.getValue
+import com.kosta.pp1.utils.extensions.addMembers
+import com.kosta.pp1.utils.extensions.getValue
 import com.kosta.pp1.semanticAnalysis.SemanticAnalyzer
-import com.kosta.pp1.types.TypeInferenceEngine
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import com.kosta.pp1.utils.Log4JUtils
 import com.kosta.pp1.utils.objExists
 import com.kosta.pp1.utils.objExistsInScope
@@ -22,7 +23,7 @@ object Register {
             is RegisterStateDefault -> false
             else -> true
         }
-        this.state = newState
+        state = newState
     }
 
     fun registerProgram(program: Program): Obj {
@@ -52,12 +53,14 @@ object Register {
         }
         val obj = state.registerVar(name, struct) ?: Tab.noObj
         Log4JUtils.reportDeclaration(obj,declaration)
+        Cache.objMap[declaration] = obj
         return obj
     }
 
     fun registerMethod(methodSignature: MethodSignature): Obj {
         val obj = state.registerMethod(methodSignature)
         Log4JUtils.reportDeclaration(obj,methodSignature)
+        Cache.objMap[methodSignature] = obj
         return obj
     }
 
@@ -71,6 +74,7 @@ object Register {
         val node = Tab.insert(Obj.Con, name, structType)
         node.adr = def.literal.getValue()
         Log4JUtils.reportDeclaration(node,def)
+        Cache.objMap[def] = node
         return node
     }
 
@@ -104,6 +108,7 @@ object Register {
             classObj = Tab.insert(Obj.Type,className,classStruct)
         }
         Log4JUtils.reportDeclaration(classObj,classDecl)
+        Cache.objMap[classDecl] = classObj
         return classObj
     }
 
@@ -117,6 +122,7 @@ object Register {
         val interfaceStruct = Struct(Struct.Interface)
         interfaceObj = Tab.insert(Obj.Type, interfaceName, interfaceStruct)
         Log4JUtils.reportDeclaration(interfaceObj,interfaceDecl)
+        Cache.objMap[interfaceDecl] = interfaceObj
         return interfaceObj
     }
 }

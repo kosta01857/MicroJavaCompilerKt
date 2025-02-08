@@ -1,7 +1,7 @@
-package com.kosta.pp1.register
+package com.kosta.pp1.semanticAnalysis.register
 
 import com.kosta.pp1.ast.*
-import com.kosta.pp1.types.TypeInferenceEngine
+import com.kosta.pp1.semanticAnalysis.types.TypeInferenceEngine
 import com.kosta.pp1.utils.Log4JUtils
 import com.kosta.pp1.utils.objExistsInScope
 import rs.etf.pp1.symboltable.Tab

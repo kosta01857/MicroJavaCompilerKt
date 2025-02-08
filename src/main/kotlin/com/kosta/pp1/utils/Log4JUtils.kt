@@ -1,7 +1,7 @@
 package com.kosta.pp1.utils
 
 import com.kosta.pp1.ast.SyntaxNode
-import com.kosta.pp1.extensions.typeName
+import com.kosta.pp1.utils.extensions.typeName
 import com.kosta.pp1.semanticAnalysis.SemanticAnalyzer
 import org.apache.log4j.FileAppender
 import org.apache.log4j.Logger
@@ -26,7 +26,7 @@ object Log4JUtils {
             this.substring(0, this.lastIndexOf(".")) + "-test.log"
         }
         val logFile = File(logFileName)
-        val renamedFile = File(logFile.absoluteFile.name + "." + System.currentTimeMillis())
+        val renamedFile = File(logFile.absolutePath+ "." + System.currentTimeMillis())
         if (logFile.exists() && !logFile.renameTo(renamedFile)) System.err.println("Could not rename log file")
         appender.file = logFile.absolutePath
         appender.activateOptions()
