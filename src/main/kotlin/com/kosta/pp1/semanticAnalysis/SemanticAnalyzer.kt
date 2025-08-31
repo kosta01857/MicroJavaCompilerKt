@@ -16,8 +16,6 @@ import com.kosta.pp1.core.utils.extensions.*
 import com.kosta.pp1.core.utils.inScopeOf
 import com.kosta.pp1.core.utils.objExists
 import com.kosta.pp1.core.utils.setType
-import com.kosta.pp1.utils.*
-import com.kosta.pp1.utils.extensions.*
 
 const val IS_UNDECLARED = "is declared"
 const val USE_OF_VARIABLE = "use of variable"

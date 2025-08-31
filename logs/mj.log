@@ -1,56 +1,70 @@
-INFO  05:40:39,158 - Compiling source file: /Users/kosta01856/files/Programiranje/project/MJCompiler/src/test/resources/temp.mj
-INFO  05:40:39,178 - #2 program
-INFO  05:40:39,178 - #48 mj
-INFO  05:40:39,178 - #48 int
-INFO  05:40:39,179 - #48 a
-INFO  05:40:39,179 - #30 ;
-INFO  05:40:39,179 - #33 {
-INFO  05:40:39,180 - #17 void
-INFO  05:40:39,180 - #48 main
-INFO  05:40:39,180 - #31 (
-INFO  05:40:39,180 - #32 )
-INFO  05:40:39,180 - #48 int
-INFO  05:40:39,180 - #48 a
-INFO  05:40:39,180 - #35 [
-INFO  05:40:39,180 - #36 ]
-INFO  05:40:39,180 - #30 ;
-INFO  05:40:39,180 - #48 int
-INFO  05:40:39,181 - #48 b
-INFO  05:40:39,181 - #30 ;
-INFO  05:40:39,181 - #33 {
-INFO  05:40:39,181 - #48 a
-INFO  05:40:39,181 - #35 [
-INFO  05:40:39,181 - #45 3
-INFO  05:40:39,181 - #36 ]
-INFO  05:40:39,182 - #27 =
-INFO  05:40:39,182 - #45 3
-INFO  05:40:39,182 - #30 ;
-INFO  05:40:39,182 - #34 }
-INFO  05:40:39,182 - #34 }
-INFO  05:40:39,184 - Program(
+INFO  21:57:36,930 - Compiling source file: /Users/kosta01856/files/Programiranje/project/MJCompiler/build/resources/main/example.mj
+INFO  21:57:36,950 - #2 program
+INFO  21:57:36,950 - #48 mj
+INFO  21:57:36,950 - #33 {
+INFO  21:57:36,951 - #17 void
+INFO  21:57:36,951 - #48 main
+INFO  21:57:36,951 - #31 (
+INFO  21:57:36,951 - #32 )
+INFO  21:57:36,951 - #48 int
+INFO  21:57:36,951 - #48 c
+INFO  21:57:36,951 - #30 ;
+INFO  21:57:36,952 - #48 int
+INFO  21:57:36,952 - #48 a
+INFO  21:57:36,952 - #35 [
+INFO  21:57:36,952 - #36 ]
+INFO  21:57:36,952 - #30 ;
+INFO  21:57:36,952 - #48 int
+INFO  21:57:36,952 - #48 b
+INFO  21:57:36,952 - #35 [
+INFO  21:57:36,952 - #36 ]
+INFO  21:57:36,952 - #30 ;
+INFO  21:57:36,952 - #33 {
+INFO  21:57:36,952 - #48 b
+INFO  21:57:36,953 - #27 =
+INFO  21:57:36,953 - #25 new
+INFO  21:57:36,953 - #48 int
+INFO  21:57:36,953 - #35 [
+INFO  21:57:36,953 - #45 10
+INFO  21:57:36,953 - #36 ]
+INFO  21:57:36,953 - #30 ;
+INFO  21:57:36,953 - #48 a
+INFO  21:57:36,954 - #27 =
+INFO  21:57:36,954 - #25 new
+INFO  21:57:36,954 - #48 int
+INFO  21:57:36,954 - #35 [
+INFO  21:57:36,954 - #45 20
+INFO  21:57:36,954 - #36 ]
+INFO  21:57:36,954 - #30 ;
+INFO  21:57:36,954 - #48 b
+INFO  21:57:36,954 - #35 [
+INFO  21:57:36,954 - #45 0
+INFO  21:57:36,954 - #36 ]
+INFO  21:57:36,954 - #27 =
+INFO  21:57:36,954 - #45 25
+INFO  21:57:36,954 - #30 ;
+INFO  21:57:36,954 - #48 c
+INFO  21:57:36,954 - #27 =
+INFO  21:57:36,954 - #45 30
+INFO  21:57:36,954 - #18 +
+INFO  21:57:36,954 - #48 b
+INFO  21:57:36,954 - #35 [
+INFO  21:57:36,955 - #45 0
+INFO  21:57:36,955 - #36 ]
+INFO  21:57:36,955 - #30 ;
+INFO  21:57:36,955 - #15 print
+INFO  21:57:36,955 - #31 (
+INFO  21:57:36,955 - #48 c
+INFO  21:57:36,955 - #32 )
+INFO  21:57:36,955 - #30 ;
+INFO  21:57:36,955 - #34 }
+INFO  21:57:36,955 - #34 }
+INFO  21:57:36,957 - Program(
   ProgName(
    mj
   ) [ProgName]
-  DeclarationsRecursive(
-    NoDeclarations(
-    ) [NoDeclarations]
-    DeclarationVar(
-      GlobalVarDeclarationList(
-        VarDeclarationList(
-          Type(
-           int
-          ) [Type]
-          VarDecl(
-            IdDecl(
-              IdentDecl(
-               a
-              ) [IdentDecl]
-            ) [IdDecl]
-          ) [VarDecl]
-        ) [VarDeclarationList]
-      ) [GlobalVarDeclarationList]
-    ) [DeclarationVar]
-  ) [DeclarationsRecursive]
+  NoDeclarations(
+  ) [NoDeclarations]
   MethodDeclarationsRecursive(
     MethodDeclarationsDerived1(
     ) [MethodDeclarationsDerived1]
@@ -61,7 +75,21 @@ INFO  05:40:39,184 - Program(
         ) [FunctionArgumentListDerived1]
       ) [MethodSignatureVoid]
       LocalVarDeclarationListsRecursive(
-        LocalVarDeclarationListsConcrete(
+        LocalVarDeclarationListsRecursive(
+          LocalVarDeclarationListsConcrete(
+            VarDeclarationList(
+              Type(
+               int
+              ) [Type]
+              VarDecl(
+                IdDecl(
+                  IdentDecl(
+                   c
+                  ) [IdentDecl]
+                ) [IdDecl]
+              ) [VarDecl]
+            ) [VarDeclarationList]
+          ) [LocalVarDeclarationListsConcrete]
           VarDeclarationList(
             Type(
              int
@@ -74,63 +102,206 @@ INFO  05:40:39,184 - Program(
               ) [ArrayDecl]
             ) [VarDecl]
           ) [VarDeclarationList]
-        ) [LocalVarDeclarationListsConcrete]
+        ) [LocalVarDeclarationListsRecursive]
         VarDeclarationList(
           Type(
            int
           ) [Type]
           VarDecl(
-            IdDecl(
-              IdentDecl(
+            ArrayDecl(
+              ArrayDeclaration(
                b
-              ) [IdentDecl]
-            ) [IdDecl]
+              ) [ArrayDeclaration]
+            ) [ArrayDecl]
           ) [VarDecl]
         ) [VarDeclarationList]
       ) [LocalVarDeclarationListsRecursive]
       StatementsRecursive(
-        StatementsDerived1(
-        ) [StatementsDerived1]
-        DesignatorStmt(
-          VarDesignation(
-            Designator(
-             a
-              ArrayAccess(
-                NoTail(
-                ) [NoTail]
+        StatementsRecursive(
+          StatementsRecursive(
+            StatementsRecursive(
+              StatementsRecursive(
+                StatementsDerived1(
+                ) [StatementsDerived1]
+                DesignatorStmt(
+                  VarDesignation(
+                    Designator(
+                     b
+                      NoTail(
+                      ) [NoTail]
+                    ) [Designator]
+                    ExprAddTerm(
+                      AddTermConcrete(
+                        TermConcrete(
+                          FactorNewType(
+                            NewArray(
+                              Type(
+                               int
+                              ) [Type]
+                              ExprAddTerm(
+                                AddTermConcrete(
+                                  TermConcrete(
+                                    FactorLiteral(
+                                      NUMBER(
+                                       10
+                                      ) [NUMBER]
+                                    ) [FactorLiteral]
+                                  ) [TermConcrete]
+                                ) [AddTermConcrete]
+                              ) [ExprAddTerm]
+                            ) [NewArray]
+                          ) [FactorNewType]
+                        ) [TermConcrete]
+                      ) [AddTermConcrete]
+                    ) [ExprAddTerm]
+                  ) [VarDesignation]
+                ) [DesignatorStmt]
+              ) [StatementsRecursive]
+              DesignatorStmt(
+                VarDesignation(
+                  Designator(
+                   a
+                    NoTail(
+                    ) [NoTail]
+                  ) [Designator]
+                  ExprAddTerm(
+                    AddTermConcrete(
+                      TermConcrete(
+                        FactorNewType(
+                          NewArray(
+                            Type(
+                             int
+                            ) [Type]
+                            ExprAddTerm(
+                              AddTermConcrete(
+                                TermConcrete(
+                                  FactorLiteral(
+                                    NUMBER(
+                                     20
+                                    ) [NUMBER]
+                                  ) [FactorLiteral]
+                                ) [TermConcrete]
+                              ) [AddTermConcrete]
+                            ) [ExprAddTerm]
+                          ) [NewArray]
+                        ) [FactorNewType]
+                      ) [TermConcrete]
+                    ) [AddTermConcrete]
+                  ) [ExprAddTerm]
+                ) [VarDesignation]
+              ) [DesignatorStmt]
+            ) [StatementsRecursive]
+            DesignatorStmt(
+              VarDesignation(
+                Designator(
+                 b
+                  ArrayAccess(
+                    NoTail(
+                    ) [NoTail]
+                    ExprAddTerm(
+                      AddTermConcrete(
+                        TermConcrete(
+                          FactorLiteral(
+                            NUMBER(
+                             0
+                            ) [NUMBER]
+                          ) [FactorLiteral]
+                        ) [TermConcrete]
+                      ) [AddTermConcrete]
+                    ) [ExprAddTerm]
+                  ) [ArrayAccess]
+                ) [Designator]
                 ExprAddTerm(
                   AddTermConcrete(
                     TermConcrete(
                       FactorLiteral(
                         NUMBER(
-                         3
+                         25
                         ) [NUMBER]
                       ) [FactorLiteral]
                     ) [TermConcrete]
                   ) [AddTermConcrete]
                 ) [ExprAddTerm]
-              ) [ArrayAccess]
-            ) [Designator]
+              ) [VarDesignation]
+            ) [DesignatorStmt]
+          ) [StatementsRecursive]
+          DesignatorStmt(
+            VarDesignation(
+              Designator(
+               c
+                NoTail(
+                ) [NoTail]
+              ) [Designator]
+              ExprAddTerm(
+                AddTermRecursive(
+                  AddTermConcrete(
+                    TermConcrete(
+                      FactorLiteral(
+                        NUMBER(
+                         30
+                        ) [NUMBER]
+                      ) [FactorLiteral]
+                    ) [TermConcrete]
+                  ) [AddTermConcrete]
+                  Plus(
+                  ) [Plus]
+                  TermConcrete(
+                    FactorIdent(
+                      Designator(
+                       b
+                        ArrayAccess(
+                          NoTail(
+                          ) [NoTail]
+                          ExprAddTerm(
+                            AddTermConcrete(
+                              TermConcrete(
+                                FactorLiteral(
+                                  NUMBER(
+                                   0
+                                  ) [NUMBER]
+                                ) [FactorLiteral]
+                              ) [TermConcrete]
+                            ) [AddTermConcrete]
+                          ) [ExprAddTerm]
+                        ) [ArrayAccess]
+                      ) [Designator]
+                    ) [FactorIdent]
+                  ) [TermConcrete]
+                ) [AddTermRecursive]
+              ) [ExprAddTerm]
+            ) [VarDesignation]
+          ) [DesignatorStmt]
+        ) [StatementsRecursive]
+        PrintStmt(
+          PrintOne(
             ExprAddTerm(
               AddTermConcrete(
                 TermConcrete(
-                  FactorLiteral(
-                    NUMBER(
-                     3
-                    ) [NUMBER]
-                  ) [FactorLiteral]
+                  FactorIdent(
+                    Designator(
+                     c
+                      NoTail(
+                      ) [NoTail]
+                    ) [Designator]
+                  ) [FactorIdent]
                 ) [TermConcrete]
               ) [AddTermConcrete]
             ) [ExprAddTerm]
-          ) [VarDesignation]
-        ) [DesignatorStmt]
+          ) [PrintOne]
+        ) [PrintStmt]
       ) [StatementsRecursive]
     ) [MethodDefinition]
   ) [MethodDeclarationsRecursive]
 ) [Program]
-INFO  05:40:39,184 - ===================================
-INFO  05:40:39,191 - Declaration of variable a of type Integer level: 0 at line 2
-INFO  05:40:39,192 - Declaration of method main of return type None number of args: 0 at line 4
-INFO  05:40:39,193 - Declaration of variable a of type Array of Integers level: 1 at line 4
-INFO  05:40:39,193 - Declaration of variable b of type Integer level: 1 at line 4
-INFO  05:40:39,199 - semantic analysis passed!
+INFO  21:57:36,957 - ===================================
+INFO  21:57:36,964 - Declaration of method main of return type None number of args: 0 at line 3
+INFO  21:57:36,965 - Declaration of variable c of type Integer level: 1 at line 3
+INFO  21:57:36,966 - Declaration of variable a of type Array of Integers level: 1 at line 3
+INFO  21:57:36,966 - Declaration of variable b of type Array of Integers level: 1 at line 3
+INFO  21:57:36,974 - use of local variable b of type Array of Integers level: 1 at line 4
+INFO  21:57:36,974 - use of local variable a of type Array of Integers level: 1 at line 5
+INFO  21:57:36,975 - use of local variable c of type Integer level: 1 at line 7
+INFO  21:57:36,976 - semantic analysis passed!
+INFO  21:57:36,979 - obj is b at line 7
+INFO  21:57:36,979 - aload at line 7
+INFO  21:57:36,979 - obj is c at line 8

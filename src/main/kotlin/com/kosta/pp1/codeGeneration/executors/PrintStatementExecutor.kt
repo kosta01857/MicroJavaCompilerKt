@@ -18,8 +18,12 @@ internal class PrintStatementExecutor : StatementExecutor {
             ExprStack.pushExpression(printExpression)
             Code.loadConst(0)
             val printExpressionType: Struct = Cache.typeMap[printExpression] ?: throw RuntimeException("type map failed")
-            if (printExpressionType.equals(Tab.charType)) Code.put(Code.bprint)
-            else Code.put(Code.print)
+            if (printExpressionType == Tab.charType){
+                Code.put(Code.bprint)
+            }
+            else {
+                Code.put(Code.print)
+            }
         }
     }
 }

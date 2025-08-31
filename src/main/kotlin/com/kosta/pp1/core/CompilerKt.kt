@@ -72,7 +72,7 @@ class CompilerKt {
     }
 
     val log = Logger.getLogger(CompilerKt::class.java)
-    val mjFileName = "test301"
+    val mjFileName = "example"
     var br: BufferedReader? = null
     fun compile() {
         val sourceCode = this::class.java.classLoader.getResource("$mjFileName.mj").toURI().let{ File(it) }

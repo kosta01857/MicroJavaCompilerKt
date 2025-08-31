@@ -67,6 +67,8 @@ fun handleMemberAccess(targetStruct: Struct, accessor: MemberAccess): Pair<Obj, 
 fun handleArrayElemet(currentObj: Obj, currentType: Struct, lastAccessor: ArrayAccess, designator: Designator): Obj {
     if (!currentType.isArray() && currentObj.type.isArray()) {
         val elemObj = Obj(Obj.Elem, currentObj.name, currentType)
+        elemObj.adr = currentObj.adr
+        elemObj.level = currentObj.level
         Cache.elemToArrMap[elemObj] = currentObj
         Cache.designatorToExprMap[designator] = lastAccessor.expression
         return elemObj

@@ -10,6 +10,8 @@ import com.kosta.pp1.core.utils.*
 import rs.etf.pp1.symboltable.Tab
 import rs.etf.pp1.symboltable.concepts.Obj
 import rs.etf.pp1.symboltable.concepts.Struct
+import rs.etf.pp1.symboltable.structure.HashTableDataStructure
+import rs.etf.pp1.symboltable.structure.SymbolDataStructure
 
 /**
  * checks if two class references are compatible in the polymorphic context
@@ -209,15 +211,12 @@ fun Obj.isFunctionCallValid(parameters: ActPars): Boolean {
     return isValid
 }
 
-fun Obj.addMember(member: Obj) {
-    this.type.membersTable.insertKey(member)
-}
-
-fun Obj.addMembers(members: Collection<Obj>) = members.forEach { this.addMember(it) }
 
 fun Obj.insertAllMembers() {
-    val locals = Tab.currentScope.locals
-    locals?.let {
-        this.addMembers(Tab.currentScope.locals.symbols())
+    val locals = Tab.currentScope.locals.symbols().filter { it.isOfKind(Obj.Fld) }
+    val map = HashTableDataStructure()
+    locals.forEach{
+        map.insertKey(it)
     }
+    this.type.setMembers(map)
 }

@@ -1,18 +1,11 @@
 program mj
 {
-    class Abs{
-        int a;
-        {
-            void methAbs(){}
-        }
+    void main() int c; int a[]; int b[];{
+        b = new int[10];
+        a = new int[20];
+        b[0] = 25;
+        c = 30 + b[0];
+        print(c);
     }
-    class Con extends Abs{
-        int b;
-        {
-            void methCon(){}
-        }
-    }
-	void main() {
-	    print(3);
-	}
 }
+
